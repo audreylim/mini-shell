@@ -2,6 +2,10 @@
 
 A toy Unix Shell with job control.
 
+## Demo
+
+![](./shell.gif)
+
 ## Features
 
 ### Builtin Commands

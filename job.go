@@ -18,7 +18,7 @@ func jobHandler(pid int, state string, cmd string) {
 			jobInfo := []string{i, state, cmd}
 			jobsList[pid] = jobInfo
 		}
-		sigPrompt <- true
+		sigPrompt <- struct{}{}
 	case suspendedState:
 		jobInfo := jobsList[pid]
 

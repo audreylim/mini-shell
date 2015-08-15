@@ -6,7 +6,7 @@ import (
 
 var (
 	sigStateChanged = make(chan string)
-	sigPrompt       = make(chan bool)
+	sigPrompt       = make(chan struct{})
 
 	// Not thread safe.
 	jobsList = make(map[int][]string)

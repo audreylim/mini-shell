@@ -6,6 +6,8 @@ A toy Unix Shell with job control.
 
 ![](./shell.gif)
 
+Warning: some bugs exist.
+
 ## Features
 
 ### Builtin Commands

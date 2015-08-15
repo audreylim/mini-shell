@@ -31,7 +31,7 @@ func execFgCmd(cmd []string, sigStateChanged chan string) {
 			fmt.Printf("Unknown command: %s\n", cmd[0])
 		}
 		// Don't execute new process with empty return. Will cause panic.
-		sigPrompt <- true
+		sigPrompt <- struct{}{}
 		return
 	}
 	var procAttr os.ProcAttr
@@ -61,7 +61,7 @@ func execFgCmd(cmd []string, sigStateChanged chan string) {
 			jobHandler(wpid, runningState, cmdStr)
 			jobHandler(wpid, suspendedState, cmdStr)
 			// Return prompt when fg has become bg
-			sigPrompt <- true
+			sigPrompt <- struct{}{}
 		}
 		//if ws.Continued() {
 		//	state = contState
@@ -73,7 +73,7 @@ func execFgCmd(cmd []string, sigStateChanged chan string) {
 	}
 
 	p.Wait()
-	sigPrompt <- true
+	sigPrompt <- struct{}{}
 }
 
 func execBgCmd(cmd []string, sigStateChanged chan string) {
@@ -84,7 +84,7 @@ func execBgCmd(cmd []string, sigStateChanged chan string) {
 		if cmd[0] != "" {
 			fmt.Printf("Unknown command: %s\n", cmd[0])
 		}
-		sigPrompt <- true
+		sigPrompt <- struct{}{}
 		return
 	}
 	var procAttr os.ProcAttr
@@ -111,7 +111,7 @@ func execBgCmd(cmd []string, sigStateChanged chan string) {
 		}
 		if ws.Stopped() {
 			jobHandler(wpid, suspendedState, cmdStr)
-			sigPrompt <- true
+			sigPrompt <- struct{}{}
 		}
 		//if ws.Continued() {
 		//	state = contState
@@ -123,5 +123,5 @@ func execBgCmd(cmd []string, sigStateChanged chan string) {
 	}
 
 	p.Wait()
-	sigPrompt <- true
+	sigPrompt <- struct{}{}
 }

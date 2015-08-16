@@ -95,6 +95,9 @@ func execBgCmd(cmd []string, sigStateChanged chan string) {
 		fmt.Printf("Start process %s, %s failed: %v", err, argv0, cmd)
 	}
 	jobHandler(p.Pid, runningState, cmdStr)
+	sigPrompt <- struct{}{}
+
+	//FIXME: Bg processes should not receive keyboard signals sent to fg process.
 
 	for {
 		sigChild := make(chan os.Signal)
